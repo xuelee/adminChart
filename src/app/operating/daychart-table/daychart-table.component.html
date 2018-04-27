@@ -1,0 +1,99 @@
+<div class="container" [@flyIn]="'active'" (click) = "initDate($event)">
+    <form class="form-vertical" role="form">
+          <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group" contenteditable="true">
+                              <span class="input-group-addon" id="basic-addon3">开始时间</span>
+                              <input type="text" value = "{{search.startTime.toLocaleDateString()}}" class="form-control" (focus)="initDate($event);showDate.startTime = true;">
+                                <div [hidden]="!showDate.startTime" style="position: absolute; z-index:10; min-height:290px;"  (click)="initDate($event);showDate.startTime = true;">
+                                <datepicker [(ngModel)]="search.startTime" [maxDate]="search.endTime" [showWeeks]="true"  (selectionDone)="dataChange('startTime')"  id="startTime" name="startTime" ></datepicker>
+                                </div>
+                            </div>
+                         </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束时间</span>
+                              <input type="text" value = "{{search.endTime.toLocaleDateString()}}" class="form-control" (focus)="initDate($event);showDate.endTime = true;">
+                                <div [hidden]="!showDate.endTime" (click)="initDate($event);showDate.endTime = true;" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.endTime" [minDate]="search.startTime" [showWeeks]="true"  (selectionDone)="dataChange('endTime')"  id="endTime" name="endTime" ></datepicker>
+                                </div>
+                            </div>
+                         </div>
+                        <div class="col-lg-1">
+                           <span class="input-group-btn" style="width: 60px">
+                              <button class="btn btn-default" type="button" (click)="getByPage(1)"><i class="fa fa-search" aria-hidden="true"></i> {{'search' | translate}}</button>
+                          </span>
+                           <span class="input-group-btn" style="width: 60px">
+                              <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                          </span>
+                        </div>
+                </div>
+            </div>
+        </div>   
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="everyday-item-container" style="overflow-x: auto;">
+                <table class="table table-bordered" style="min-width: 1400px;">
+                   <thead>
+                        <tr class="center">
+                          <th width="200px">日期</th>
+                          <th width="150px">激活设备数</th>
+                          <th width="150px">注册用户数</th>
+                          <th width="150px">投资总额</th>
+                          <th width="150px">总投额（定）</th>
+                          <th width="150px">总投额（活）</th>
+                          <th width="150px">投资人数（总）</th>
+                          <th width="150px">首投用户数</th>
+                          <th width="150px">复投用户数</th>
+                          <th width="150px">投资次数</th>
+                          <th width="150px">投资次数（活）</th>
+                          <th width="150px">投资次数（定）</th>
+                          <th width="150px">还款总额</th>
+                          <th width="150px">取款总额</th>
+                          <th width="150px">新增存量（总)</th>
+                          <th width="150px">新增存量（定)</th>
+                          <th width="150px">新增存量（活)</th>
+                          <th width="200px">昨日<br>累计总存量</th>
+                          <th width="150px">昨日<br>定期存量</th>
+                          <th width="150px">昨日<br>活期存量</th>
+                          <th width="150px">30天留存</th>
+                        </tr>
+                       
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">
+                           <td>{{item.statisTime}}</td>                         
+                           <td>{{item.active_device_num_total}}</td>
+                           <td>{{item.a_usernum}}</td>
+                           <td>{{item.payvalue}}</td>
+                           <td>{{item.duePayvalue}}</td>
+                           <td>{{item.walletPayvalue}}</td>
+                           <td>{{item.pay_usernum}}</td>
+                           <td>{{item.s_usernum}}</td>
+                           <td>{{item.t_usernum}}</td>
+                           <td>{{item.recharge_count}}</td>
+                           <td>{{item.walletRecharge_count}}</td>
+                           <td>{{item.dueRecharge_count}}</td>
+                           <td>{{item.back_payvalue}}</td>
+                           <td>{{item.encash_payvalu}}</td>
+                           <td>{{item.newPayvalue}}</td>
+                           <td>{{item.newDuePayvalue}}</td>
+                           <td>{{item.newWalletPayvalue}}</td>
+                           <td>{{item.yesterdayPayvalue}}</td>
+                           <td>{{item.yesterdayDuePayvalue}}</td>
+                           <td>{{item.yesterdayWalletPayvalue}}</td>
+                           <td>{{item.thirtyRemaining}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- <div class="alert alert-info alert-dismissible" role="alert" >
+              {{totalDesc}}
+            </div>
+           <pagination [totalItems]="page.totalItems" [maxSize]="page.maxSize" [itemsPerPage]="page.itemsPerPage" [(ngModel)]="page.currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="page.numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination> -->
+        </div>
+    </div>
+</div>

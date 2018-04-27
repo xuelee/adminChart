@@ -1,0 +1,80 @@
+<div class="container" [@flyIn]="'active'" (click) = "initBody()">
+    <form class="form-vertical" role="form">
+       <div class="alert alert-info alert-dismissible" role="alert" >
+          
+         月榜单数据 <strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+          <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group" contenteditable="true">
+                              <span class="input-group-addon" id="basic-addon3">选择月份</span>
+                              <input type="text" value = "{{search.startTime.getFullYear()}}年{{search.startTime.getMonth()+1}}月" class="form-control" (focus)="initDate($event);showDate.startTime = true;">
+                                <div [hidden]="!showDate.startTime" style="position: absolute; z-index:10; min-height:290px;"  (click)="initDate($event);showDate.startTime = true;">
+                                <datepicker [(ngModel)]="search.startTime"  [datepickerMode]="datepickerMode" [maxDate]="search.endTime" [minMode]="minMode" [maxMode]="minMode" (selectionDone)="dataChange('startTime')"  id="startTime" name="startTime" >
+
+                                </datepicker>
+                                </div>
+                            </div>
+                         </div>
+                        <div class="col-lg-1">
+                           <span class="input-group-btn" style="width: 60px">
+                              <button class="btn btn-default" type="button" (click)="getByPage(1)"><i class="fa fa-search" aria-hidden="true"></i> {{'search' | translate}}</button>
+                          </span>
+                           <span class="input-group-btn" style="width: 60px">
+                              <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                          </span>
+                        </div>
+                </div>
+            </div>
+        </div>   
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="walletchart-item-container">
+                <table class="table table-bordered"  *ngFor="let item of list">
+                        <tr>
+                          <th>类型</th>
+                          <th>金额</th>
+                          <th>姓名</th>
+                          <th>手机号</th>
+                         
+                        </tr>
+                        <tr>                       
+                           <td>单笔最高</td>
+                           <td>{{item.highestSingleDueCapital}}</td>
+                           <td>{{item.highestSingleDueCapitalRealName}}</td>
+                           <td>{{item.highestSingleDueCapitalMobile}}</td>
+                        </tr>
+                        <tr> 
+                          <td>累计最高</td>
+                           <td>{{item.highestAccumDueCapital}}</td>
+
+                           <td>{{item.highestAccumDueCapitalRealName}}</td>
+
+                           <td>{{item.highestAccumDueCapitalMobile}}</td>
+                        </tr>
+                        <tr> 
+                           <td>投资次数最高</td>  
+                           <td>{{item.highestCountDueCapital}}</td>
+
+                           <td>{{item.highestCountDueCapitalRealName}}</td>
+
+                           <td>{{item.highestCountDueCapitalMobile}}</td>
+                        </tr>
+                        <tr> 
+                           <td>邀友人数最多</td>  
+                           <td>{{item.highestInvestSuccess}}</td>
+
+                           <td>{{item.highestInvestSuccessRealName}}</td>
+
+                           <td>{{item.highestInvestSuccessMobile}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           <pagination [totalItems]="page.totalItems" [maxSize]="page.maxSize" [itemsPerPage]="page.itemsPerPage" [(ngModel)]="page.currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="page.numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination>
+        </div>
+    </div>
+</div>

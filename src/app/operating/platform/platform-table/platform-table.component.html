@@ -1,0 +1,60 @@
+<div class="platform-table-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="请输入主标题" [(ngModel)]="search['name']" id="name" name="name">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" (click) = "getByPage(1)"><i class="fa fa-search" aria-hidden="true"></i> 搜索</button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input-group pull-right">
+                    <button class="btn btn-success" type="button" (click)="newplatform()"><i class="fa fa-platform" aria-hidden="true"></i> 新增</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="platform-item-container">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>文案类型</th>
+                            <th>副标题</th>
+                            <th>主标题 </th>
+                            <th>内容</th>
+                            <th>描述内容</th>
+                            <th>是否启用</th>
+                            <th>创建时间</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let platform of list; let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{platform.typeName}}</td>
+                            <td>{{platform.title}}</td>
+
+                            <td>{{platform.mainTitle}}</td>
+
+                            <td>{{platform.summary}}</td>
+
+                            <td>{{platform.description}}</td>
+                            <td>{{platform.status == '1'?'启用':'禁用'}}</td>
+                            <td>{{platform.addTime}}</td>
+                            <td>
+                            <a class="btn btn-success" type="button" [routerLink]="['/workspace/operating/editplatform',platform.id]">编辑</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <pagination [totalItems]="page.totalItems" [maxSize]="page.maxSize" [itemsPerPage]="page.itemsPerPage" [(ngModel)]="page.currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="page.numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination> 
+        </div>
+    </div>
+</div>

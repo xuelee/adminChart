@@ -1,0 +1,82 @@
+<div class="comment-table-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+       <div class="alert  alert-info alert-dismissible" role="alert" >
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>{{systemDate}}</strong> 
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">渠道</span>
+                              <input type="text" class="form-control" id="basic-url"  placeholder="请输入渠道名" 
+                              [(ngModel)]="search.name" id="name" name="name">
+                            </div>
+
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">开始时间</span>
+                              <input type="text" value = "{{search.startTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker = true;">
+                                <div *ngIf="showDatePicker" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.startTime"   [maxDate]="search.endTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker')" id="startTime" name="startTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束时间</span>
+                              <input type="text" value = "{{search.endTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker1 = true;">
+                                <div *ngIf="showDatePicker1" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.endTime"  [minDate]="search.startTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker1')" id="endTime" name="endTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" (click)="getByPage(1)"><i class="fa fa-search" aria-hidden="true" ></i> {{'search' | translate}}</button>
+                        </span>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="comment-item-container">
+                <table class="table table-bordered">
+                  <thead>
+                        <tr class="center">
+                            <th>序号</th>
+                            <th name="channel" class="sorting">渠　　道</th>
+                            <th name="in_usernum" class="sorting">注册</th>
+                            <th name="s_usernum" class="sorting">首充</th>
+                            <th name="t_usernum" class="sorting">复充</th>
+                            <th name="s_payvalue" class="sorting">首充额</th>
+                            <th name="t_payvalue" class="sorting">复充额</th>
+                            <th name="a_payvalue" class="sorting">总充额</th>
+                            <th name="inhomevalue" class="sorting">期间存量</th>
+                            <th name="apayvalue" class="sorting">当前存量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list; let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{item.channel}}</td>
+                            <td>{{item.in_usernum}}</td>
+                            <td style="color:green">{{item.s_usernum}}</td>
+                            <td style="color:green">{{item.t_usernum}}</td>
+                            <td style="color:green">{{item.s_payvalue }}</td>
+                            <td style="color:green">{{item.t_payvalue }}</td>
+                            <td style="color:green">{{item.a_payvalue }}</td>
+                            <td style="color:green">{{item.inhomevalue}}</td>
+                            <td style="color:green">{{item.apayvalue}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           <!--  <pagination [totalItems]="totalItems" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination> -->
+        </div>
+    </div>
+</div>

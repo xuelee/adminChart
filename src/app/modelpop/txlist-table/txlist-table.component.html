@@ -1,0 +1,369 @@
+<div class="txlist-table-container" [@flyIn]="'active'">
+    <div class="row" *ngIf="type == 'tx'">
+       <div class="alert alert-info alert-dismissible" role="alert" >
+          提现记录<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+        <div class="col-sm-12">
+            <div class="comment-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                      <tr>
+                        <th width="80px" align="center">ID</th>
+                        <th width="160px" align="center">订单号</th>
+                        <th width="100px" align="center">金额</th>
+                        <th width="100px" align="center">状态</th>
+                        <th width="250px" align="center">去向</th>
+                        <th width="180px" align="center">下单时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">
+                            <td>{{item.id}}</td>
+                            <td>{{item.rechargeNo}}</td>
+                            <td>{{item.amount}}</td>
+                            <td>{{item.status}}</td>
+                            <td>{{item.whereAbout}}</td>
+                            <td>{{item.orderTime}}</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+             <div>提现总额：{{data.totalAmount}}</div>
+        </div>
+        <pagination [totalItems]="totalItems" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination>
+    </div>
+    <div class="row" *ngIf="type == 'yhcz'">
+       <div class="alert alert-info alert-dismissible" role="alert" >
+          充值记录<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+        <div class="col-sm-12">
+            <div class="comment-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                     <tr>
+                        <th width="80px" align="center">ID</th>
+                        <th width="160px" align="center">订单号</th>
+                        <th width="100px" align="center">金额</th>
+                        <th width="100px" align="center">状态</th>
+                        <th width="180px" align="center">来源</th>
+                        <th width="100px" align="center">支付渠道</th>
+                        <th width="180px" align="center">下单时间</th>
+                        <th width="180px" align="center">备注</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">
+                            <td>{{item.id}}</td>
+                            <td>{{item.rechargeNo}}</td>
+                            <td>{{item.amount}}</td>
+                            <td>{{item.status}}</td>
+                            <td>{{item.whereAbout}}</td>
+                            <td>{{item.payChannel}}</td>
+                            <td>{{item.orderTime}}</td>
+                            <td>{{item.remark}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>充值总额：{{data.totalAmount}}</div>
+        </div>
+        <pagination [totalItems]="totalItems" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination>
+    </div>
+    <div class="row" *ngIf="type == 'yhlx'">
+       <div class="alert alert-info alert-dismissible" role="alert" >
+          <button type="button" class="close">  
+                <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+           </button>
+          用户利息列表<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+
+        </div>
+        <div class="col-sm-12">
+            <div class="comment-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                     <tr>                    
+                        <th width="50px">编号</th>
+                        <th width="150px">可计息金额</th>
+                        <th width="150px">年化利率(%)</th>
+                        <th width="150px">日利息金额</th>
+                        <th width="150px">计息时间</th>
+                        <th width="150px">处理时间</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">
+                            <td>{{item.id}}</td>
+                            <td>{{item.interestCapital}}</td>
+                            <td>{{item.interestRate}}</td>
+                            <td>{{item.interest}}</td>
+                            
+                            <td>{{item.interestTime}}</td>
+                            <td>{{item.addTime}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>总利息金额：{{data.totalAmount}}</div>
+        </div>
+        <pagination [totalItems]="totalItems" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination>
+    </div>
+    <div class="row" *ngIf="type == 'lsxd'">
+       <div class="alert alert-info alert-dismissible" role="alert" >
+          <button type="button" class="close">  
+                <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+           </button>
+          历史下单记录<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+
+        </div>
+        <div class="col-sm-12">
+            <div class="comment-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                     <tr>
+                        <th width="80px" align="center">ID</th>
+                        <th width="160px" align="center">订单号</th>
+                        <th width="100px" align="center">金额</th>
+                        <th width="100px" align="center">状态</th>
+                        <th width="180px" align="center">下单时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">
+                            <td>{{item.id}}</td>
+                            <td>{{item.rechargeNO}}</td>
+                            <td>{{item.amout}}</td>
+                            <td>{{item.status}}</td>
+                            <td>{{item.orderTime}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <pagination [totalItems]="totalItems" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination>
+        </div>
+    </div>
+    <div class="row" *ngIf="type == 'yhbank'">
+       <div class="alert alert-info alert-dismissible" role="alert" >
+          用户银行卡信息列表<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+        <div class="col-sm-12">
+            <div class="comment-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                    <tr>
+                        <th align="center">ID</th>
+                        <th align="center">手机号码</th>
+                        <th align="center">账号姓名</th>
+                        <th align="center">银行名称</th>
+                        <th align="center">证件号码</th>
+                        <th align="center">银行编号</th>
+                        <th align="center">银行卡号</th>
+                        <th align="center">是否支付</th>
+                        <th align="center">绑卡时间</th>
+                        <th align="center">最后支付</th>
+                        <th align="center">银行卡可提金额</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of data.result['bankList']">
+                            <td>{{item.id}}</td>
+                            <td>{{item.mobile}}</td>
+                            <td>{{item.acctName}}</td>
+                            <td>{{item.bankName}}</td>
+                            <td>{{item.idNo}}</td>
+                            <td>{{item.bankCode}}</td>
+                            <td>{{item.bankCardNo}}</td>
+                            <td>{{item.paySuccess}}</td>
+                            <td>{{item.addTime}}</td>
+                            <td>{{item.latestPaymentTime}}</td>
+                            <td>{{item.walletMoney}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           <div style="float: left;border: 1px solid #d4d4d4;padding: 5px;text-align: right;width: 100%;">
+            <div style="float: left">
+                钱包再投金额：<font style="color: green">{{data.result.walletDueAmount}}</font>元&nbsp;&nbsp;
+                银行卡可提总余额：<font style="color: blue">{{data.result.availableBalanceTotal}}</font>元&nbsp;&nbsp;
+                银行卡可提余额与钱包余额的差额：<font style="color: red">{{data.result.differWalletBankAmount}}</font>元
+
+            </div>
+            钱包利息：<font style="color: green">{{data.result.walletInterest}}</font>元&nbsp;&nbsp;
+            钱包投资产品产生的利息：<font style="color: green">{{data.result.walletProductInterest}}</font>元
+        </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="type == 'yhtz'">
+        <div class="alert alert-info alert-dismissible" role="alert" >
+          用户在投投资信息列表<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+        <div class="col-sm-12">
+            <div class="comment-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                    <tr>
+                        <th align="center">标题</th>
+                        <th align="center">投资金额</th>
+                        <th align="center">投资银行</th>
+                        <th align="center">投资时间</th>
+                        <th align="center">到期时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">
+                            <td>{{item.title}}</td>
+                            <td>{{item.amount}}</td>
+                            <td>{{item.bankName}}</td>
+                            <td>{{item.addTime}}</td>
+                            <td>{{item.dueTime}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                总投资金额：{{data.totalAmount}}元
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="type == 'yhlj'">
+        <div class="alert alert-info alert-dismissible" role="alert" >
+          用户累计投资信息列表<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+        <div class="col-sm-12">
+            <div class="comment-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                    <tr>
+                        <th align="center">标题</th>
+                        <th align="center">投资金额</th>
+                        <th align="center">投资银行</th>
+                        <th align="center">投资时间</th>
+                        <th align="center">到期时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">
+                            <td>{{item.title}}</td>
+                            <td>{{item.amount}}</td>
+                            <td>{{item.bankName}}</td>
+                            <td>{{item.addTime}}</td>
+                            <td>{{item.dueTime}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                总投资金额：{{data.totalAmount}}元
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="type == 'yhgz'">
+        <div class="alert alert-info alert-dismissible" role="alert" >
+          用户累计投资信息列表<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+        <div class="col-sm-12">
+            <div class="comment-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                    <tr>                    
+                        <th width="50px">编号</th>
+                        <th width="150px">跟踪栏目</th>
+                        <th width="150px">跟踪内容</th>
+                        <th width="150px">跟踪时间</th>
+                        <th width="150px">录入人员</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">
+                            <td>{{item.id}}</td>
+                            <td>{{item.title}}</td>
+                            <td>{{item.content}}</td>
+                            <td>{{item.addTime}}</td>
+                            <td>{{item.addUser}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="type == 'yhqb'">
+        <div class="alert alert-info alert-dismissible" role="alert" >
+          用户获取券包列表<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+        <div class="col-sm-12">
+            <div class="comment-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                    <tr>
+                        <th align="center">ID</th>
+                        <th align="center">券包名称</th>
+                        <th align="center">券包金额</th>
+                        <th align="center">券包获得日期</th>
+                        <th align="center">券包生效日期</th>
+                        <th align="center">券包截止日期</th>
+                        <th align="center">券使用规则</th>
+                        <th align="center">券包场景</th>
+                        <th align="center">使用情况</th>
+                        <th align="center">订单号</th>
+                        <th align="center">券使用时间</th>
+                        <th align="center">券包来源</th>
+                        <th align="center">券包状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">
+                            <td>{{item.id}}</td>
+                            <td>{{item.title}}</td>
+                            <td>{{item.amount}}</td>
+                            <td>{{item.gainTime}}</td>
+                            <td>{{item.startTime}}</td>
+                            <td>{{item.expireTime}}</td>
+                            <td>{{item.brief}}</td>
+                            <td>{{item.couponScene}}</td>
+                            <td>{{item.used}}</td>
+                            <td>{{item.rechargeNo}}</td>
+                            <td>{{item.usedTime}}</td>
+                            <td>{{item.source}}</td>
+                            <td>{{item.couponstatus}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> 
+    <div class="row" *ngIf="type == 'yhyq'">
+        <div class="alert alert-info alert-dismissible" role="alert" >
+          用户累计投资信息列表<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+        <div class="col-sm-12">
+            <div class="comment-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                    <tr>
+                        <th align="center">好友编号</th>
+                        <th align="center">好友名</th>
+                        <th align="center">手机号码</th>
+                        <th align="center">是否投资</th>
+                        <th align="center">注册时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">
+                            <td>{{item.invitedUserId}}</td>
+                            <td>{{item.invitedRealName}}</td>
+                            <td>{{item.invitedPhone}}</td>
+                            <td>{{item.invitedSuccess}}</td>
+                            <td>{{item.successTime}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                总共邀请：{{list.length}}人
+            </div>
+        </div>
+    </div>   
+</div>
+

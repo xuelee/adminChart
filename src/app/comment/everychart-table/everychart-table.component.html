@@ -1,0 +1,95 @@
+<div class="everychart-table-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+         <div class="alert alert-info alert-dismissible" role="alert" >
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          每日统计<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">渠道</span>
+                              <input type="text" class="form-control" placeholder="请输入渠道名" 
+                              [(ngModel)]="search.name" id="name" name="name">
+                            </div>
+
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">开始时间</span>
+                              <input type="text" value = "{{search.startTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker = true;">
+                                <div *ngIf="showDatePicker" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.startTime"   [maxDate]="search.endTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker')" id="startTime" name="startTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束时间</span>
+                              <input type="text" value = "{{search.endTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker1 = true;">
+                                <div *ngIf="showDatePicker1" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.endTime"  [minDate]="search.startTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker1')" id="endTime" name="endTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" (click)="getByPage()"><i class="fa fa-search" aria-hidden="true" ></i> {{'search' | translate}}</button>
+                        </span>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="comment-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                       <tr>
+                            <th width="150px" align="center">日期</th>
+                            <th width="100px" align="center">注册用户数</th>
+                            <th width="100px" align="center">投资次数</th>
+                            <th width="100px" align="center">复投次数</th>
+                            <th width="150px" align="center">投资总额</th>
+                            <th width="100px" align="center">总投用户</th>
+                            <th width="100px" align="center">首投用户</th>
+                            <th width="100px" align="center">激活设备数</th>
+                            <th width="100px" align="center">当日激活当日投</th>
+                            <th width="100px" align="center">新增二次用户</th>
+                            <th width="100px" align="center">复投用户</th>
+                            <th width="100px" align="center">新增钱包二投</th>
+                            <th width="150px" align="center">首投总额</th>
+                            <th width="150px" align="center">还款总额</th>
+                            <th width="150px" align="center">三投用户</th>
+                            <th width="150px" align="center">四投用户</th>
+                            <th width="150px" align="center">五投用户</th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">
+                            <td>{{item.statisTime}}</td>
+                            <td>{{item.a_usernum}}</td>
+                            <td>{{item.recharge_count}}</td>
+                            <td>{{item.t_count}}</td>
+                            <td>{{item.payvalue}}</td>
+                            <td>{{item.pay_usernum}}</td>
+                            <td>{{item.s_usernum}}</td>
+                            <td>{{item.active_device_num_total}}</td>
+                            <td>{{item.active_and_pay_num_today}}</td>
+                            <td>{{item.new_pay_2}}</td>
+                            <td>{{item.t_usernum}}</td>
+                            <td>{{item.new_wallet_2}}</td>
+                            <td>{{item.s_payvalue}}</td>
+                            <td>{{item.back_payvalue}}</td>
+                            <td>{{item.new_wallet_3}}</td>
+                            <td>{{item.new_wallet_4}}</td>
+                            <td>{{item.new_wallet_5}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

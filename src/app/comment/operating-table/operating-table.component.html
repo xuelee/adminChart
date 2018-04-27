@@ -1,0 +1,71 @@
+<div class="operating-table-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+         <div class="alert alert-info alert-dismissible" role="alert" >
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          运营数据统计<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">开始时间</span>
+                              <input type="text" value = "{{search.startTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker = true;">
+                                <div *ngIf="showDatePicker" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.startTime"   [maxDate]="search.endTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker')" id="startTime" name="startTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束时间</span>
+                              <input type="text" value = "{{search.endTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker1 = true;">
+                                <div *ngIf="showDatePicker1" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.endTime"  [minDate]="search.startTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker1')" id="endTime" name="endTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" (click)="getByPage()"><i class="fa fa-search" aria-hidden="true" ></i> {{'search' | translate}}</button>
+                        </span>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="80px" align="center">字段名</th>
+                        <th width="80px" align="center">计算结果</th>
+                        <th width="80px" align="center">备注</th>
+                    </tr>
+                    <tr>
+                        <th>每日活期增长存量</th>
+                        <td>{{list.depositIncrease}}</td>
+                        <td>从卡转入活期-活期转定期-提现</td>
+                    </tr>
+                     <tr>
+                        <th>新增首投并复投（除新手标人数）</th>
+                        <td>{{list.repeatRechargeUserNumBesidesNewPreferential}}</td>
+                         <td>新增所有复投的人数中去除所有只购买过两次的中第二次是新手标的人</td>
+                    </tr>
+                     <tr>
+                        <th>新增首投且进行复投用户(定期)</th>
+                        <td>{{list.onceAndRepeatUserCount}}</td>
+                         <td>新增的人里所有复投过定期标的人</td>
+                    </tr>
+                     <tr>
+                        <th>30天留存</th>
+                        <td>{{list.thirtyRemaining}}</td>
+                        <td>30天内注册的人 所有从卡转活期+从卡转定期-提现</td>
+                    </tr>
+                </table>
+            </div>
+           
+        </div>
+    </div>
+</div>

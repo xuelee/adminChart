@@ -1,0 +1,94 @@
+<div class="order-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+         <div class="alert alert-info alert-dismissible" role="alert" *ngIf="message != null">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>{{message}}</strong> 
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">手机号</span>
+                              <input type="text" class="form-control" id="basic-url"  placeholder="请输入手机号" 
+                              [(ngModel)]="search.phone" id="phone" name="phone">
+                            </div>
+
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">开始时间</span>
+                              <input type="text" value = "{{search.startTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker = true;">
+                                <div *ngIf="showDatePicker" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.startTime"   [maxDate]="search.endTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker')" id="startTime" name="startTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束时间</span>
+                              <input type="text" value = "{{search.endTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker1 = true;">
+                                <div *ngIf="showDatePicker1" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.endTime"  [minDate]="search.startTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker1')" id="endTime" name="endTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                           <span class="input-group-btn" style="width: 60px">
+                              <button class="btn btn-default" type="button" (click)="getByPage(1)"><i class="fa fa-search" aria-hidden="true"></i> {{'search' | translate}}</button>
+                          </span>
+                           <span class="input-group-btn" style="width: 60px">
+                              <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                          </span>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="Financial-item-container">
+               <table class="table table-bordered" style="width:1500px;margin: 0px;border-bottom: 0px;">
+                   <thead>
+                      <tr>
+                          <th width="150px">日期</th>
+                          <th width="100px">姓名</th>
+                          <th width="80px">电话</th>
+                          <th width="100px">银行卡充值</th>
+                          <th width="100px">还款到钱包</th>
+                          <th width="80px">系统充值</th>
+                          <th width="80px">购买理财</th>
+                          <th width="120px">0-15点提现</th>
+                          <th width="120px">15-24点提现</th>
+                          <th width="100px">可计息金额</th>
+                          <th width="80px">利率</th>
+                          <th width="80px">利息</th>
+                          <th width="120px">计算计息金额</th>
+                          <th width="80px">计算利率</th>
+                          <th width="80px">计算利息</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">
+                           <td width="150px">{{item.interestTime}}</td>
+                           <td width="100px">{{item.realName}}</td>
+                           <td width="80px">{{item.mobile}}</td>
+                           <td width="80px">{{item.bankTopupAmount}}</td>
+                           <td width="80px">￥{{item.rewardMoneyAmount}}</td>
+                           <td width="80px">￥{{item.drawMoneyAmount}}</td>
+                           <td width="80px">￥{{item.walletTopupAmount}}</td>
+                           <td width="80px">￥{{item.enchashmenT015}}</td>
+                           <td width="80px">￥{{item.enchashmenT1524}}</td>
+                           <td width="80px">￥{{item.interestCapital}}</td>
+                           <td width="80px">{{item.interestRate}}</td>
+                           <td width="80px">￥{{item.interest}}</td>
+                           <td width="80px">￥{{item.calculateInterestCapital}}</td>
+                           <td width="80px">￥{{item.calculateInterestRate}}</td>
+                           <td width="80px">￥{{item.calculateInterest}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

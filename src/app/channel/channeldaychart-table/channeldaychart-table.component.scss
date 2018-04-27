@@ -1,0 +1,34 @@
+
+.btn-radis{
+	height:35px;
+	width:100%;
+	.input-group-addon{
+		border:1px solid #ccc;
+		background:#fff;
+		padding:0;
+		width:50%;
+		.caret{
+			float:right;
+			margin:5px;
+		}
+	}
+	.input-group2{
+	    color: #555;
+	    text-align: center;
+	    background-color: #eee;
+	    border: 1px solid #ccc;
+	}
+	.dropdown-menu{
+		min-width:100%;    
+		font-size:14px;
+		text-align:center;
+		max-height: 300px;
+    overflow-y: auto;
+		li:hover{
+		    color: #fff;
+		    background-color: #337ab7;
+		    border-color: #337ab7;
+		}
+    }
+
+}

@@ -1,0 +1,91 @@
+<div class="menu-profile-container">
+    <form class="form-horizontal" role="form">
+       
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">菜单等级</label>
+            <div class="col-sm-5">
+               <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <span [ngSwitch]="menu.level">
+                      <span *ngSwitchCase="1">一级菜单</span>
+                      <span *ngSwitchCase="2">二级菜单</span>
+                      <span *ngSwitchCase="3">三级菜单</span>
+                    </span>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li (click) = "menu.level = 1"><a>一级菜单</a></li>
+                    <li (click) = "menu.level = 2"><a>二级菜单</a></li>
+                    <li (click) = "menu.level = 3"><a>三级菜单</a></li>
+                  </ul>
+               </div>
+            </div>
+        </div>
+         <div class="form-group" *ngIf = "menu.level != 1 && list != null">
+            <label for="firstname" class="col-sm-2 control-label">选择上级菜单</label>
+            <div class="col-sm-5">
+                <div class="dropdown">  
+                    <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary">  
+                         {{parent.name}} <span class="caret"></span>  
+                    </a>  
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">  
+                        <li  *ngFor="let item of list" 
+                        [ngClass]="menu.level == 3 && item.childMenu != null?'dropdown-submenu':''">
+                             <a  *ngIf = "!(menu.level == 3 && item.childMenu != null) " (click)="changeParent(item)">{{item.name}}</a>
+                             <a  *ngIf = "menu.level == 3 && item.childMenu != null" tabindex="-1">{{item.name}}</a>
+                             <ul class="dropdown-menu" *ngIf = "menu.level == 3 && item.childMenu != null">  
+                                <li *ngFor="let item2 of item.childMenu"  (click)="changeParent(item2)">
+                                <a>{{item2.name}}</a>
+                                </li>  
+                            </ul> 
+                        </li>  
+                    </ul>  
+                </div>  
+            </div>
+        </div>
+         <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">菜单名</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" 
+                id="name" name="name"[(ngModel)]="menu.name"
+                       placeholder="请输入菜单名称">
+            </div>
+        </div>
+         <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">key</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="urlkey" name="urlkey" [(ngModel)]="menu.urlkey"
+                       placeholder="请输入key">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">排序</label>
+            <div class="col-sm-5">
+                <input type="number" class="form-control" id="sort"  name= "sort"
+                [(ngModel)] = "menu.sort"
+                       placeholder="请输入数字">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">是否启用</label>
+            <div class="col-sm-5">
+               <div class="radio">
+                  <label>
+                    <input type="radio" name="status" id="1" value="1" checked  
+                    [(ngModel)] = "menu.status">启用
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="status" id="0" value="0"  [(ngModel)] = "menu.status">禁用
+                  </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <button type="button" class="btn btn-success" (click)="addMenu()">保存</button>
+            </div>
+        </div>
+    </form>
+</div>

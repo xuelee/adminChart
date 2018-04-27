@@ -1,0 +1,92 @@
+<div class="container" [@flyIn]="'active'"  (click) = "initBody()">
+    <form class="form-vertical" role="form">
+          <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-2">
+                          <div class="input-group btn-radis">
+                            <span class="input-group-addon input-group2" id="basic-addon3">标的类型</span>
+                            <div class="input-group-addon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                              {{search.type.name}}<span class="caret"></span>
+                            </div>
+                            <ul class="dropdown-menu">
+                              <li (click)="search.type={'name':'全部',value:''}">全部</li>
+                              <li (click)="search.type={'name':'普通',value:'0'}">普通</li>
+                              <li (click)="search.type={'name':'新人特惠',value:'1'}">新人特惠</li>
+                              <li (click)="search.type={'name':'爆款',value:'2'}">爆款</li>
+                              <li (click)="search.type={'name':'HOT',value:'3'}">HOT</li>
+                              <li (click)="search.type={'name':'奖励',value:'4'}">奖励</li>
+                              <li (click)="search.type={'name':'预售',value:'5'}">预售</li>
+                              <li (click)="search.type={'name':'活动',value:'6'}">活动</li>
+                              <li (click)="search.type={'name':'私人专享',value:'7'}">私人专享</li>
+                              <li (click)="search.type={'name':'定期特惠',value:'8'}">定期特惠</li>
+                              <li (click)="search.type={'name':'定时爆款',value:'9'}">定时爆款</li>
+                              <li (click)="search.type={'name':'小试牛刀',value:'10'}">小试牛刀</li>
+                              <li (click)="search.type={'name':'勇往直前',value:'11'}">勇往直前</li>
+                              <li (click)="search.type={'name':'极限挑战',value:'12'}">极限挑战</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group" contenteditable="true">
+                              <span class="input-group-addon" id="basic-addon3">开始时间</span>
+                              <input type="text" value = "{{search.startTime.toLocaleDateString()}}" class="form-control" (focus)="initDate($event);showDate.startTime = true;">
+                                <div [hidden]="!showDate.startTime" style="position: absolute; z-index:10; min-height:290px;"  (click)="initDate($event);showDate.startTime = true;">
+                                <datepicker [(ngModel)]="search.startTime" [maxDate]="search.endTime" [showWeeks]="true"  (selectionDone)="dataChange('startTime')"  id="startTime" name="startTime" ></datepicker>
+                                </div>
+                            </div>
+                         </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束时间</span>
+                              <input type="text" value = "{{search.endTime.toLocaleDateString()}}" class="form-control" (focus)="initDate($event);showDate.endTime = true;">
+                                <div [hidden]="!showDate.endTime" (click)="initDate($event);showDate.endTime = true;" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.endTime" [minDate]="search.startTime" [showWeeks]="true"  (selectionDone)="dataChange('endTime')"  id="endTime" name="endTime" ></datepicker>
+                                </div>
+                            </div>
+                         </div>             
+                    <div class="col-lg-1">
+                       <span class="input-group-btn" style="width: 60px">
+                          <button class="btn btn-default" type="button" (click)="getByPage(1)"><i class="fa fa-search" aria-hidden="true"></i> {{'search' | translate}}</button>
+                      </span>
+                       <span class="input-group-btn" style="width: 60px">
+                          <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                      </span>
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="project-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                        <tr class="center">
+                          <th>标的类型</th>
+                          <th>年化收益</th>
+                          <th>销售额</th>
+                          <th>购买次数</th>
+                          <th>购买人数</th>
+                          <th>人均购买额</th>
+                          <th>平均每次购买额</th>
+                        </tr>
+                       
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">                       
+                           <td>{{item.projectType}}</td>
+                           <td>{{item.rate}}</td>
+                           <td>{{item.saleAmount}}</td>
+                           <td>{{item.investTimes}}</td>
+                           <td>{{item.investUserNumbers}}</td>
+                           <td>{{item.avgAmountPerUser}}</td>
+                           <td>{{item.avgAmountPerTime}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           <pagination [totalItems]="page.totalItems" [maxSize]="page.maxSize" [itemsPerPage]="page.itemsPerPage" [(ngModel)]="page.currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="page.numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination>
+        </div>
+    </div>
+</div>

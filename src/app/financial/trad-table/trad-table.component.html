@@ -1,0 +1,80 @@
+<div class="trad-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+         <div class="alert alert-info alert-dismissible" role="alert" *ngIf="message != null">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>{{message}}</strong> 
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-1">
+                          <div class="input-group btn-radis">
+                            <div class="input-group-addon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                              {{search.type.name}}<span class="caret"></span>
+                            </div>
+                            <ul class="dropdown-menu">
+                              <li (click)="search.type={'name':'活期',value:'1'}">活期</li>
+                              <li (click)="search.type={'name':'定期',value:'2'}">定期</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">开始时间</span>
+                              <input type="text" value = "{{search.startTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker = true;"
+                                (blur) = "dataChange('showDatePicker')">
+                                <div [hidden]="!showDatePicker" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.startTime" [maxDate]="search.endTime" [showWeeks]="true"  id="startTime" name="startTime" ></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束时间</span>
+                              <input type="text" value = "{{search.endTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker1 = true;" 
+                               (blur) = "dataChange('showDatePicker1')">
+                                <div [hidden]="!showDatePicker1" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.endTime"  [minDate]="search.startTime" [showWeeks]="true" id="endTime" name="endTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                           <span class="input-group-btn" style="width: 60px">
+                              <button class="btn btn-default" type="button" (click)="getByPage(1)"><i class="fa fa-search" aria-hidden="true"></i> {{'search' | translate}}</button>
+                          </span>
+                           <span class="input-group-btn" style="width: 60px">
+                              <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                          </span>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="Financial-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                       <tr>
+                          <th>用户名</th>
+                          <th>手机号</th>
+                          <th>订单号</th>
+                          <th>金额</th>
+                          <th>交易时间</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list; let i=index">
+                           <td>{{item.userName}}</td>
+                           <td>{{item.mobile}}</td>
+                           <td>{{item.rechargeNo}}</td>
+                           <td>￥{{item.value}}</td>
+                           <td>{{item.addTime}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           <pagination [totalItems]="totalItems" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination>
+        </div>
+    </div>
+</div>

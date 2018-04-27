@@ -1,0 +1,24 @@
+.btn-radis{
+	height:35px;
+	width:100%;
+	.input-group-addon{
+		border:1px solid #ccc;
+		background:#fff;
+		width:100%;
+		.caret{
+			float:right;
+			margin:5px;
+		}
+	}
+	.dropdown-menu{
+		min-width:100%;    
+		font-size:14px;
+		text-align:center;
+		li:hover{
+		    color: #fff;
+		    background-color: #337ab7;
+		    border-color: #337ab7;
+		}
+    }
+
+}

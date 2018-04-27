@@ -1,0 +1,57 @@
+<div class="expuser-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+         <div class="alert alert-info alert-dismissible" role="alert" *ngIf="message != null">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>{{message}}</strong> 
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row" style="margin-bottom:10px;">
+                        <div class="col-lg-1">
+                           <span class="input-group-btn" style="width: 60px">
+                              <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                          </span>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="Financial-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                        <tr class="center">
+                            <th>用户id </th>
+                            <th>用户名 </th>
+                            <th>手机号 </th>
+                            <th>理论余额 </th>
+                            <th>实际余额 </th> 
+                            <th>持有定期 </th> 
+                            <th>差额 </th> 
+                            <th>操作</th>
+       
+                            
+                        </tr>
+                       
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list; let i=index">
+                           <td>{{item.userId}}</td>
+                           <td>{{item.userName}}</td>
+                           <td>{{item.mobile}}</td>
+                           <td>￥{{item.theoAmount}}</td>
+                           <td>￥{{item.walletAmount}}</td>
+                           <td>￥{{item.rechargeAmount}}</td>
+                           <td>￥{{item.differAmount}}</td>
+                           <td style="text-align:center">
+                            <button type="button" class="btn btn-info" (click)="goItem(item)">查看流水</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           <pagination [totalItems]="totalItems" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination>
+        </div>
+    </div>
+</div>

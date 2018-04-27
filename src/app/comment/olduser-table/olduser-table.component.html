@@ -1,0 +1,72 @@
+<div class="olduser-table-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+         <div class="alert alert-info alert-dismissible" role="alert" >
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          老客数据统计<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">开始时间</span>
+                              <input type="text" value = "{{search.startTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker = true;">
+                                <div *ngIf="showDatePicker" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.startTime"   [maxDate]="search.endTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker')" id="startTime" name="startTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束时间</span>
+                              <input type="text" value = "{{search.endTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker1 = true;">
+                                <div *ngIf="showDatePicker1" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.endTime"  [minDate]="search.startTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker1')" id="endTime" name="endTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" (click)="getByPage()"><i class="fa fa-search" aria-hidden="true" ></i> {{'search' | translate}}</button>
+                        </span>
+                         <span class="input-group-btn" style="width: 60px">
+                              <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                          </span>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-6">
+            <div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="150px;">老客投资人数</th>
+                        <td>{{list.userNum}}</td>
+                    </tr>
+                     <tr>
+                        <th>老客投资额</th>
+                        <td>{{list.totalAmount}}</td>
+                    </tr>
+                    <tr>
+                        <th>老客投资次数</th>
+                        <td>{{list.totalTimes}}</td>
+                    </tr>
+                    <tr>
+                        <th>老客交易额（定）</th>
+                        <td>{{list.dueRachargeAmount}}</td>
+                    </tr>
+                    <tr>
+                        <th>老客投资次数（定）</th>
+                        <td>{{list.dueRachargeTimes}}</td>
+                    </tr>
+                    <tr>
+                        <th>30天留存</th>
+                        <td>{{list.thirtyRemaining}}</td>
+                    </tr>
+                 </table>
+            </div>
+        </div>
+    </div>
+</div>

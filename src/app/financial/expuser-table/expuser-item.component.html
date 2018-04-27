@@ -1,0 +1,38 @@
+<div class="expuser-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+         <div class="alert alert-info alert-dismissible" role="alert" *ngIf="message != null">
+          <button type="button" class="close" data-dismiss="alert" routerLink="../../../expusertable/page/1">关闭<span aria-hidden="true">&times;</span></button>
+          <strong>{{message}}</strong> 
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="Financial-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                        <tr class="center">
+                             <th>交易时间</th>  
+                             <th>交易金额</th>   
+                             <th>银行</th>   
+                             <th>卡号</th>   
+                             <th>交易订单号</th>  
+                             <th>明细</th> 
+                        </tr>
+                       
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list; let i=index">
+                           <td>{{item.orderTime}}</td>
+                           <td>￥{{item.value}}</td>
+                           <td>{{item.bankName}}</td>
+                           <td>{{item.bankCardNo}}</td>
+                           <td>{{item.rechargeNo}}</td>
+                           <td>{{item.remark}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           
+        </div>
+    </div>
+</div>

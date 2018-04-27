@@ -1,0 +1,92 @@
+<div class="container-item" [@flyIn]="'active'" (click) = "initBody()">
+    <form class="form-vertical" role="form">
+       <div class="alert alert-info alert-dismissible" role="alert" >
+          
+          渠道每日统计<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+          <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-sm-3">
+                          <div class="input-group btn-radis">
+                            <span class="input-group-addon input-group2" id="basic-addon3">渠道</span>
+                            <div class="input-group-addon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                               <input type="text"  class="form-control" [(ngModel)]="search.consValue" id="consValue" name="consValue" 
+                               (ngModelChange)="setSelect()" (focus)="search.consValue=''" (blur)="search.consValue=channel['consValue']">
+                               <!-- <span class="caret"></span> -->
+                            </div>
+                            <ul class="dropdown-menu">
+                              <li *ngFor="let channelItem of channelList" (click)="search.consValue=channelItem.consValue;channel=channelItem" [hidden]="channelItem.hidden" >{{channelItem.consValue}}</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group" contenteditable="true">
+                              <span class="input-group-addon" id="basic-addon3">开始时间</span>
+                              <input type="text" value = "{{search.startTime.toLocaleDateString()}}" class="form-control" (focus)="initDate($event);showDate.startTime = true;">
+                                <div [hidden]="!showDate.startTime" style="position: absolute; z-index:10; min-height:290px;"  (click)="initDate($event);showDate.startTime = true;">
+                                <datepicker [(ngModel)]="search.startTime" [maxDate]="search.endTime" [showWeeks]="true"  (selectionDone)="dataChange('startTime')"  id="startTime" name="startTime" ></datepicker>
+                                </div>
+                            </div>
+                         </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束时间</span>
+                              <input type="text" value = "{{search.endTime.toLocaleDateString()}}" class="form-control" (focus)="initDate($event);showDate.endTime = true;">
+                                <div [hidden]="!showDate.endTime" (click)="initDate($event);showDate.endTime = true;" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.endTime" [minDate]="search.startTime" [showWeeks]="true"  (selectionDone)="dataChange('endTime')"  id="endTime" name="endTime" ></datepicker>
+                                </div>
+                            </div>
+                         </div>
+                        <div class="col-lg-1">
+                           <span class="input-group-btn" style="width: 60px">
+                              <button class="btn btn-default" type="button" (click)="getByPage(1)"><i class="fa fa-search" aria-hidden="true"></i> {{'search' | translate}}</button>
+                          </span>
+                           <span class="input-group-btn" style="width: 60px">
+                              <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                          </span>
+                        </div>
+                </div>
+            </div>
+        </div>   
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="everyday-item-container" style="overflow-x: auto;">
+                <table class="table table-bordered">
+                   <thead>
+                        <tr class="center">
+                            <th>渠道ID</th>
+                            <th>日期</th>
+                            <th>注册人数</th>
+                            <th>首投人数</th>
+                            <th>复投人数</th>
+                            <th>累计首投金额</th>
+                            <th>累计复投金额</th>
+                            <th>累计投资金额</th>
+                            <th>操作</th>
+                        </tr>
+                       
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">                    
+                           <td>{{item.channelId}}</td>
+                           <td>{{item.regTime}}</td>
+                           <td>{{item.regNum}}</td>
+                           <td>{{item.firstInvestNum}}</td>
+                           <td>{{item.moreInvestNum}}</td>
+                           <td>{{item.totalFirstInvestAmount}}</td>
+                           <td>{{item.totalMoreInvestAmount}}</td>
+                           <td>{{item.totalInvestAmount}}</td>
+                           <td><span class="input-group-btn" style="width: 60px">
+                               <a class="btn btn-default" type="button" href="{{constant.root}}ydmgmt/api/statistics/exportSingleChannelUserData?queryTime={{item.regTime}}&channelId={{item.channelId}}&token={{token}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                              </span>
+                           </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           <pagination [totalItems]="page.totalItems" [maxSize]="page.maxSize" [itemsPerPage]="page.itemsPerPage" [(ngModel)]="page.currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="page.numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination> 
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="left_col scroll-view" id = "left_col">
+    <div class="navbar nav_title" style="border: 0;">
+        <a routerLink="post/posttable/page/1" class="site_title"><i class="fa fa-cloud"></i><span>&nbsp;云端金融</span></a>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+        <div class="menu_section">
+             <ul class="nav side-menu">
+                <li *ngFor = "let item of list">
+                    <a>{{item.name}} <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" *ngIf = "item.childMenu.length>0">
+                        <li *ngFor = "let itemChild of item.childMenu"><a routerLink="{{itemChild.urlkey}}">{{itemChild.name}}</a></li>
+                    </ul>
+                </li>
+             </ul>
+        </div>
+    </div>
+</div>

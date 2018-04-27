@@ -1,0 +1,112 @@
+<div class="queryuser-table-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+         <div class="alert alert-info alert-dismissible" role="alert" >
+            用户查询<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+          </div>
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="basic-url"  placeholder="请输入用户名字/手机号码/身份证" 
+                    [(ngModel)]="search.userName" id="userName" name="userName">
+                     <span class="input-group-btn">
+                      <button class="btn btn-default" type="button" (click)="getByPage()"><i class="fa fa-search" aria-hidden="true" ></i> {{'search' | translate}}</button>
+                    </span>
+                  </div>   
+              </div>
+          </div>
+    </form>
+    <div class="row big-list">
+        <div class="col-sm-12">
+            <div  *ngFor="let item of list">
+                <div>
+                  用户基本信息
+                </div>
+                <table class="table table-bordered">
+                <tbody>
+                       
+                        <tr>
+                            <td width="15%" align="right">UID</td><td width="15%">{{item.uid}}</td>
+                            <td width="15%" align="right">RegistrationID</td><td>{{item.registrationID}}</td>
+                        </tr>
+                        <tr>
+                            <td width="15%" align="right">真实姓名</td><td width="15%">{{item.realName}}&nbsp;<span style="color:red;">[{{item.realNameAuth==1?'已认证':'未认证'}}]</span></td>
+                            <td width="15%" align="right">来源渠道</td><td>{{item.channel}}</td>
+                        </tr>
+                        <tr>
+                            <td width="15%" align="right">手机号码</td><td width="15%">{{item.mobile}}</td>
+                            <td width="15%" align="right">系统版本</td><td>{{item.systemVersion}}</td>
+                        </tr>
+                        <tr>
+                            <td width="15%" align="right">身份证</td><td width="15%">{{item.cardNO}}</td>
+                            <td width="15%" align="right">序列号</td><td>{{item.sealNO}}</td>
+                        </tr>
+                        <tr>
+                            <td width="15%" align="right">年龄</td><td width="15%">{{item.ageAndSex}}</td>
+                            <td width="15%" align="right">注册时间</td><td>{{item.regTime}}</td>
+                        </tr>
+                        <tr>
+                            <td width="15%" align="right">钱包实际余额</td>
+                            <td><font style="color: blue">{{item.walletAmountInfact}}</font></td>
+                            <td colspan="2">&nbsp;
+                                <span style="color: #174B73">理论余额：<font style="color: green">{{item.walletAmountTheory}}</font></span> &nbsp;
+                                <span style="color: #174B73">理论与实际相差额度：<font style="color: red">{{item.differTheoryAndInfact}}</font></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="4">
+                                <a (click)="open('txlist/type/tx/page/1/id/'+item.uid)">提现记录</a>&nbsp;&nbsp;
+                                <a (click)="open('txlist/type/yhcz/page/1/id/'+item.uid)">充值记录</a>&nbsp;&nbsp;
+                                <a (click)="open('txlist/type/yhlx/page/1/id/'+item.uid)">用户利息列表</a>&nbsp;&nbsp;
+                                <a (click)="open('txlist/type/lsxd/page/1/id/'+item.uid)">历史下单记录</a>&nbsp;&nbsp;
+                                <a (click)="open('txlist/type/yhbank/page/1/id/'+item.uid)">用户银行卡信息</a> &nbsp;&nbsp;
+                                <a (click)="open('txlist/type/yhtz/page/1/id/'+item.uid)">用户在投项目</a>&nbsp;&nbsp;
+                                <a (click)="open('txlist/type/yhlj/page/1/id/'+item.uid)">用户累计投资项目</a>&nbsp;&nbsp;
+                                <a (click)="open('txlist/type/yhgz/page/1/id/'+item.uid)">用户跟踪记录</a> &nbsp;&nbsp;
+                                <!-- <a (click)="open('txlist/type/yhbank/page/1/id/'+item.uid)">券包注册有礼补发</a> &nbsp;&nbsp; -->
+                                <a (click)="open('txlist/type/yhqb/page/1/id/'+item.uid)">用户券包信息</a>&nbsp;&nbsp;
+                                <a (click)="open('txlist/type/yhyq/page/1/id/'+item.uid)">好友邀请列表</a>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered">
+                   <thead>
+                      <tr>
+                          <th>产品名称</th>
+                          <th>产品标签</th>
+                          <th>投资金额(元)</th>
+                          <th>充值编码</th>
+                          <th>产品购买期限(天)</th>
+                          <th>产品上线期限(天)</th>
+                          <th>产品利率(%)</th>
+                          <th>产品利息</th>
+                          <th>投资卡号</th>
+                          <th>所属银行</th>
+                          <th>持有人名称</th>
+                          <th>投资时间</th>
+                          <th>到期时间</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let i1 of item.rechargeLogs">
+                            <td>{{i1.title}}</td>
+                            <td>{{i1.tag}}</td>
+                            <td>{{i1.amout}}</td>
+                            <td>{{i1.rechargeNO}}</td>
+                            <td>{{i1.buyDurationDay}}</td>
+                            <td>{{i1.onlineDurationDay}}</td>
+                            <td>{{i1.userInterest}}</td>
+                            <td>{{i1.dueInterest}}</td>
+                            <td>{{i1.bankCardNo}}</td>
+                            <td>{{i1.bankName}}</td>
+                            <td>{{i1.bankCardOwnerName}}</td>
+                            <td>{{i1.rechargeTime}}</td>
+                            <td>{{i1.dueEndTime}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           
+        </div>
+    </div>
+</div>

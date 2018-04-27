@@ -1,0 +1,67 @@
+<div class="container" [@flyIn]="'active'" (click) = "initBody()">
+    <form class="form-vertical" role="form">
+       <div class="alert alert-info alert-dismissible" role="alert" >
+          
+         活期专享标的数据统计<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+          <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group" contenteditable="true">
+                              <span class="input-group-addon" id="basic-addon3">开始时间</span>
+                              <input type="text" value = "{{search.startTime.toLocaleDateString()}}" class="form-control" (focus)="initDate($event);showDate.startTime = true;">
+                                <div [hidden]="!showDate.startTime" style="position: absolute; z-index:10; min-height:290px;"  (click)="initDate($event);showDate.startTime = true;">
+                                <datepicker [(ngModel)]="search.startTime" [maxDate]="search.endTime" [showWeeks]="true"  (selectionDone)="dataChange('startTime')"  id="startTime" name="startTime" ></datepicker>
+                                </div>
+                            </div>
+                         </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束时间</span>
+                              <input type="text" value = "{{search.endTime.toLocaleDateString()}}" class="form-control" (focus)="initDate($event);showDate.endTime = true;">
+                                <div [hidden]="!showDate.endTime" (click)="initDate($event);showDate.endTime = true;" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.endTime" [minDate]="search.startTime" [showWeeks]="true"  (selectionDone)="dataChange('endTime')"  id="endTime" name="endTime" ></datepicker>
+                                </div>
+                            </div>
+                         </div>
+                        <div class="col-lg-1">
+                           <span class="input-group-btn" style="width: 60px">
+                              <button class="btn btn-default" type="button" (click)="getByPage(1)"><i class="fa fa-search" aria-hidden="true"></i> {{'search' | translate}}</button>
+                          </span>
+                           <span class="input-group-btn" style="width: 60px">
+                              <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                          </span>
+                        </div>
+                </div>
+            </div>
+        </div>   
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="walletchart-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                        <tr class="center">
+                          <th>姓名</th>
+                          <th>手机</th>
+                          <th>时间</th>
+                          <th>金额</th>
+                          <th>形式</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">                       
+                           <td>{{item.realName}}</td>
+                           <td>{{item.mobile}}</td>
+                           <td>{{item.dealTime}}</td>
+                           <td>{{item.amount}}</td>
+                           <td>{{item.type}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           <pagination [totalItems]="page.totalItems" [maxSize]="page.maxSize" [itemsPerPage]="page.itemsPerPage" [(ngModel)]="page.currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="page.numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination>
+        </div>
+    </div>
+</div>

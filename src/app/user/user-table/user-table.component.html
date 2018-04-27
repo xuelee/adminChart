@@ -1,0 +1,44 @@
+<div class="user-table-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="用户名" [(ngModel)]="search.userName" id="userName" name="userName">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" (click) = "getUsersByPage(1)"><i class="fa fa-search" aria-hidden="true"></i> 搜索</button>
+                    </span>
+                </div>
+            </div>
+<!--             <div class="col-sm-2">
+                <div class="input-group pull-right">
+                    <button class="btn btn-success" type="button" (click)="newUser()"><i class="fa fa-user" aria-hidden="true"></i> 创建用户</button>
+                </div>
+            </div> -->
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="user-item-container">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>角色</th>
+                            <th>用户名</th>
+                            <th>注册时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of userList; let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{user.sRole.name}}</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.addTime}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <pagination [totalItems]="totalItems" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination>
+        </div>
+    </div>
+</div>

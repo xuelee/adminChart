@@ -1,0 +1,95 @@
+<div class="everyday-table-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+        <div class="alert alert-info alert-dismissible" role="alert" >
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>{{systemDate}}</strong> 
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">开始时间</span>
+                              <input type="text" value = "{{search.startTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker = true;">
+                                <div *ngIf="showDatePicker" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.startTime"  [maxDate]="search.endTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker')" id="startTime" name="startTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束时间</span>
+                              <input type="text" value = "{{search.endTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker1 = true;">
+                                <div *ngIf="showDatePicker1" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.endTime"  [minDate]="search.startTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker1')" id="endTime" name="endTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" (click)="getByPage(1)"><i class="fa fa-search" aria-hidden="true" ></i> {{'search' | translate}}</button>
+                        </span>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="everyday-item-container" style="overflow-x: auto;">
+                <table class="table table-bordered" style="min-width: 1200px;">
+                   <thead>
+                    <tr class="center">
+                        <th>序号</th>
+                        <th name="showdate">时间</th>
+                        <th name="a_usernum">激活数</th>
+                        <th name="in_usernum">注册数</th>
+                        <th name="s_usernum">首投数<br>(活+定)</th>
+                        <th name="t_usernum">复投数<br>(活+定)</th>
+                        <th name="st_all">首投额<br>(活+定)</th>
+                        <th name="ft_all">复投额<br>(活+定)</th>
+                        <!-- <th name="s_payvalue">首投额(活)</th>
+                        <th name="t_payvalue">复投额(活)</th> -->
+                        <th name="a_payvaluedd">总投定期</th>
+                        <th name="a_payvalue">总投金额<br>(活+定)</th>
+                        <th name="outvalue">取款金额</th>
+                        <th name="inhomevalue">资金存量<br>(活+定)</th>
+                        <th name="alltotals">昨日<br>累计存量</th>
+                        <th name="alltotals">昨日<br>定期存量</th>
+                        <th name="alltotals">昨日<br>活期存量</th>
+                        <th name="av_day">人均复投<br>时间间隔</th>
+                        <th name="av_rmb">人均存款</th>
+                        <th name="av_week">人均累计<br>忠诚周数</th>
+                </tr>
+            </thead>
+            <tbody>
+                 <tr *ngFor="let item of list; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{item.showdate}}</td>
+                    <td>{{item.a_usernum}}</td>
+                    <td>{{item.in_usernum}}</td>
+                    <td>{{item.s_usernum}}</td>
+                    <td>{{item.t_usernum}}</td>
+                    <td>{{item.st_all |number: '1.0-2'}}</td>
+                    <td>{{item.ft_all |number: '1.0-2'}}</td>
+                   
+
+                    <td>{{item.a_payvaluedd |number: '1.0-2'}}</td>
+                    <td>{{item.a_payvalue |number: '1.0-2'}}</td>
+
+                    <td>{{item.out_value |number: '1.0-2'}}</td>
+                    <td>{{item.inhomevalue |number: '1.0-2'}}</td>
+                    <td>{{item.alltotals |number: '1.0-2'}}</td>
+                    <td>{{item.all_pro |number: '1.0-2'}}</td>
+                    <td>{{item.all_wt |number: '1.0-2'}}</td>
+                    <td>{{item.av_day}}</td>
+                    <td>{{item.av_rmb}}</td>
+                    <td>{{item.av_week}}</td>
+                </tr>
+                </tbody>
+                </table>
+            </div>
+           <!--  <pagination [totalItems]="totalItems" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination> -->
+        </div>
+    </div>
+</div>

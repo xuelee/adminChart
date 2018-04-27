@@ -1,0 +1,75 @@
+<div class="container" [@flyIn]="'active'" (click) = "initDate($event)">
+
+    <form class="form-vertical" role="form">
+          <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group" contenteditable="true">
+                              <span class="input-group-addon" id="basic-addon3">开始时间</span>
+                              <input type="text" value = "{{search.startTime.toLocaleDateString()}}" class="form-control" (focus)="initDate($event);showDate.startTime = true;">
+                                <div [hidden]="!showDate.startTime" style="position: absolute; z-index:10; min-height:290px;"  (click)="initDate($event);showDate.startTime = true;">
+                                <datepicker [(ngModel)]="search.startTime" [maxDate]="search.endTime" [showWeeks]="true"  (selectionDone)="dataChange('startTime')"  id="startTime" name="startTime" ></datepicker>
+                                </div>
+                            </div>
+                         </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束时间</span>
+                              <input type="text" value = "{{search.endTime.toLocaleDateString()}}" class="form-control" (focus)="initDate($event);showDate.endTime = true;">
+                                <div [hidden]="!showDate.endTime" (click)="initDate($event);showDate.endTime = true;" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.endTime" [minDate]="search.startTime" [showWeeks]="true"  (selectionDone)="dataChange('endTime')"  id="endTime" name="endTime" ></datepicker>
+                                </div>
+                            </div>
+                         </div>
+                        <div class="col-lg-1">
+                           <span class="input-group-btn" style="width: 60px">
+                              <button class="btn btn-default" type="button" (click)="getByPage(1)"><i class="fa fa-search" aria-hidden="true"></i> {{'search' | translate}}</button>
+                          </span>
+                           <span class="input-group-btn" style="width: 60px">
+                              <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                          </span>
+                        </div>
+                </div>
+            </div>
+        </div>   
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="invest-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                        <tr class="center">
+                          <th>日期</th>
+                          <th>首投人数 (总）</th>
+                          <th>首投金额（总）</th>
+                          <th>首投人数（定）</th>
+                          <th>首投金额（定）</th>
+                          <th>复投人数（总）</th>
+                          <th>复投总额（总）</th>
+                          <th>复投人数（定）</th>
+                          <th>复投金额（定）</th>
+                          <th>复投数（除新手标）</th>
+                        </tr>
+                       
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">                       
+                           <td>{{item.statisTime}}</td>
+                           <td>{{item.firstRechargeUserNum}}</td>
+                           <td>{{item.firstRechargeAmount}}</td>
+                           <td>{{item.firstDueRechargeUserNum}}</td>
+                           <td>{{item.firstDueRechargeAmount}}</td>
+                           <td>{{item.repeatRechargeUserNum}}</td>
+                           <td>{{item.repeatRechargeAmount}}</td>
+                           <td>{{item.repeatDueRechargeUserNum}}</td>
+                           <td>{{item.repeatDueRechargeAmount}}</td>
+                           <td>{{item.repeatRechargeTimes}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           <!-- <pagination [totalItems]="page.totalItems" [maxSize]="page.maxSize" [itemsPerPage]="page.itemsPerPage" [(ngModel)]="page.currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="page.numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination> -->
+        </div>
+    </div>
+</div>

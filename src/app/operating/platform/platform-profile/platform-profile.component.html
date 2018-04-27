@@ -1,0 +1,70 @@
+<div class="platform-profile-container">
+    <form class="form-horizontal" role="form">
+            <div class="form-group">
+                    <label for="firstname" class="col-sm-2 control-label">文案类型</label>
+                    <div class="col-sm-5">
+                       <div class="dropdown">
+                          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span>{{platform.typeName}}</span>
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li *ngFor="let item of typeList; let i=index" (click)="changeType(item)"><a>{{item.typeName}}</a></li>
+                          </ul>
+                       </div>
+                    </div>
+                </div>
+         <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">主标题</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" 
+                id="mainTitlee" name="mainTitlee"[(ngModel)]="platform.mainTitle"
+                       placeholder="请输入主标题">
+            </div>
+        </div>
+         <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">副标题</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="title" name="title" [(ngModel)]="platform.title"
+                       placeholder="请输入副标题">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">内容</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="summary"  name= "summary"
+                [(ngModel)] = "platform.summary"
+                       placeholder="请输入内容">
+            </div>
+        </div>
+         <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">描述内容</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="description"  name= "description"
+                [(ngModel)] = "platform.description"
+                       placeholder="请输入描述内容">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">是否启用</label>
+            <div class="col-sm-5">
+               <div class="radio">
+                  <label>
+                    <input type="radio" name="status" id="1" value="1" checked  
+                    [(ngModel)] = "platform.status">启用
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="status" id="0" value="0"  [(ngModel)] = "platform.status">禁用
+                  </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <button type="button" class="btn btn-success" (click)="addPlatform()">保存</button>
+            </div>
+        </div>
+    </form>
+</div>

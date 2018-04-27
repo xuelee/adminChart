@@ -1,0 +1,131 @@
+<div class="userinfo-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                  <div class="col-sm-2">
+                    <div class="input-group btn-radis">
+                      <span class="input-group-addon input-group2" id="basic-addon3">投资类型</span>
+                      <div class="input-group-addon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        {{search.type.name}}<span class="caret"></span>
+                      </div>
+                      <ul class="dropdown-menu">
+                        <li (click)="search.type={'name':'全部',value:1}">全部</li>
+                        <li (click)="search.type={'name':'活期',value:2}">活期</li>
+                        <li (click)="search.type={'name':'定期',value:3}">定期</li>
+                        <li (click)="search.type={'name':'卡购买',value:4}">卡购买</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3">投资开始时间</span>
+                        <input type="text" value = "{{datePipe.transform(search.investStartTime)}}" class="form-control" (focus)="showDatePicker = true;">
+                          <div [hidden]="!showDatePicker" style="position: absolute; z-index:10; min-height:290px;">
+                          <datepicker [(ngModel)]="search.investStartTime" [maxDate]="search.investEndTime" [showWeeks]="true"  id="investStartTime" name="investStartTime"  (selectionDone)="dataChange('showDatePicker')" ></datepicker>
+                          </div>
+                      </div>
+                  </div>
+                   <div class="col-lg-3">
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3">投资结束时间</span>
+                        <input type="text" value = "{{datePipe.transform(search.investEndTime)}}" class="form-control" (focus)="showDatePicker1 = true;" >
+                          <div [hidden]="!showDatePicker1" style="position: absolute; z-index:10; min-height:290px;">
+                          <datepicker [(ngModel)]="search.investEndTime"  [minDate]="search.investStartTime" [showWeeks]="true" id="investEndTime" name="investEndTime"  (selectionDone)="dataChange('showDatePicker1')" ></datepicker>
+                          </div>
+                      </div>
+                  </div>   
+                </div>
+            </div>
+        </div>   
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row" style="margin-bottom:10px;">
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                          <span class="input-group-addon" id="basic-addon3">手机号</span>
+                          <input type="text" class="form-control" id="basic-url"  placeholder="请输入手机号" 
+                          [(ngModel)]="search.phone" id="phone" name="phone">
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="input-group">
+                          <span class="input-group-addon" id="basic-addon3">注册开始时间</span>
+                          <input type="text" value = "{{datePipe.transform(search.regStartTime)}}" class="form-control" (focus)="showDatePicker2 = true;">
+                            <div [hidden]="!showDatePicker2" style="position: absolute; z-index:10; min-height:290px;">
+                            <datepicker [(ngModel)]="search.regStartTime" [maxDate]="search.regEndTime" [showWeeks]="true"  id="regStartTime" name="regStartTime"  (selectionDone)="dataChange('showDatePicker2')" ></datepicker>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-3">
+                        <div class="input-group">
+                          <span class="input-group-addon" id="basic-addon3">注册结束时间</span>
+                          <input type="text" value = "{{datePipe.transform(search.regEndTime)}}" class="form-control" (focus)="showDatePicker3 = true;" >
+                            <div [hidden]="!showDatePicker3" style="position: absolute; z-index:10; min-height:290px;">
+                            <datepicker [(ngModel)]="search.regEndTime"  [minDate]="search.regStartTime" [showWeeks]="true" id="regEndTime" name="regEndTime"  (selectionDone)="dataChange('showDatePicker3')" ></datepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                       <div class="btn-group" role="group" style="width: 250px;">
+                            <button class="btn btn-default" type="button" (click)="getByPage(1)"><i class="fa fa-search" aria-hidden="true"></i> {{'search' | translate}}</button>
+                            <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                            <button class="btn btn-default" type="button" (click)="clear()"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i> 清空日期
+                            </button>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="operating-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                        <tr class="center">
+                            <th>真实姓名 </th>
+                            <th>手机号 </th>
+                            <th>年龄 </th>
+                            <th>性别 </th>
+                            <th>注册时间 </th>
+                            <th>投资次数 </th>
+                            <th>累计投资金额 </th>
+                            <th>在投金额 </th>
+                            <th>最高留存 </th>
+                            <th>平均投资间隔</th>
+                            <th>最近一次投资时间 </th>
+                            <th>最近一次投资额 </th>
+                            <th>最近一次投资年化收益 </th>
+                            <th>最近一次投资期限 </th>
+                            <th>上一次提现时间 </th>
+                            <th>上一次提现金额 </th>
+                        </tr>
+                       
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">
+                           <td>{{item.realName}}</td>
+                           <td>{{item.userName}}</td>
+                           <td>{{item.userAge}}</td>
+                           <td>{{item.userSex}}</td>
+                           <td>{{item.regTime}}</td>
+                           <td>{{item.investTimes}}</td>
+                           <td>{{item.investTotalAmount}}</td>
+                           <td>{{item.investAmount}}</td>
+                           <td>{{item.maxStockAmount}}</td>
+                           <td>{{item.avgInvestInterval}}</td>
+                           <td>{{item.lastestInvestTime}}</td>
+                           <td>{{item.lastestInvestAmount}}</td>
+                           <td>{{item.lastestInvestRate}}</td>
+                           <td>{{item.lastestInvestDuration}}</td>
+                           <td>{{item.lastEncashTime}}</td>
+                           <td>{{item.lastEncashAmount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           <pagination [totalItems]="page.totalItems" [maxSize]="page.maxSize" [itemsPerPage]="page.itemsPerPage" [(ngModel)]="page.currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="page.numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination>
+        </div>
+    </div>
+</div>

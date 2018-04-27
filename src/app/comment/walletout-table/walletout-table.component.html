@@ -1,0 +1,116 @@
+<div class="walletout-table-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">开始时间_提现</span>
+                              <input type="text" value = "{{search.encashStartTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker = true;">
+                                <div *ngIf="showDatePicker" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.encashStartTime"  [maxDate]="search.encashEndTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker')" id="encashStartTime" name="encashStartTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束时间_提现</span>
+                              <input type="text" value = "{{search.encashEndTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker1 = true;">
+                                <div *ngIf="showDatePicker1" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.encashEndTime"  [minDate]="search.ncashStartTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker1')" id="encashEndTime" name="encashEndTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">提现用户包含回款</span>
+                              <div class="form-control">
+                                  <input type="checkbox" id="status" name="status"  [(ngModel)]="search.status">
+                              </div>
+                               <span class="input-group-addon" id="basic-addon3">提现</span>
+                              <div class="form-control">
+                                  <input type="checkbox" id="tx" name="type"  [(ngModel)]="search.type.tx">
+                              </div>
+                               <span class="input-group-addon" id="basic-addon3">回款</span>
+                              <div class="form-control">
+                                  <input type="checkbox" id="hk" name="type"  [(ngModel)]="search.type.hk">
+                              </div>
+                            </div>
+                           
+                        </div>
+                </div>
+    
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">开始时间_回款</span>
+                              <input type="text" value = "{{search.refundStartTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker2 = true;">
+                                <div *ngIf="showDatePicker2" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.refundStartTime"  [maxDate]="search.refundEndTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker2')" id="refundStartTime" name="refundStartTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束时间_回款</span>
+                              <input type="text" value = "{{search.refundEndTime.toLocaleDateString()}}" class="form-control" (focus)="showDatePicker3 = true;">
+                                <div *ngIf="showDatePicker3" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.refundEndTime"  [minDate]="search.refundStartTime" [showWeeks]="true" (selectionDone)="dataChange('showDatePicker3')" id="refundEndTime" name="refundEndTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                         <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" (click)="getByPage(1)"><i class="fa fa-search" aria-hidden="true" ></i> {{'search' | translate}}</button>
+                        </span>
+                        </div>
+                </div>
+                   <div class="row">
+                        <div class="col-lg-3">
+                          <span class="input-group-btn" >
+                             <a class="btn btn-default" type="button" href="{{down.exportExcel}}"><i class="fa fa-download" aria-hidden="true"></i> 导出Excel</a>
+                          </span>
+                           <span class="input-group-btn">
+                              <a class="btn btn-default" type="button" href="{{down.exportUserId}}"><i class="fa fa-download" aria-hidden="true"></i> 导出用户Id</a>
+                          </span>
+                          <span class="input-group-btn">
+                              <a class="btn btn-default" type="button" href="{{down.exportPhone}}"><i class="fa fa-download" aria-hidden="true"></i> 导出用户手机号码</a>
+                          </span>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div>
+                <table class="table table-bordered">
+                   <thead>
+                    <tr>
+                        <th width="80px" align="center">类型</th>
+                        <th width="80px" align="center">用户id</th>
+                        <th width="80px" align="center">用户名</th>
+                         <th width="80px" align="center">金额</th>
+                        <th width="150px" align="center">手机号</th>
+                        <th width="150px" align="center">日期</th>
+                    </tr>
+            </thead>
+            <tbody>
+                 <tr *ngFor="let item of list">
+                    <td>{{item.type}}</td>
+                    <td>{{item.userId}}</td>
+                    <td>{{item.realName}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.userName}}</td>
+                    <td>{{item.dealTime}}</td>
+                 </tr>
+                 <tr>
+                   <td colspan="6">{{totalDesc}}</td>
+                 </tr>
+                </tbody>
+                </table>
+            </div>
+            <pagination [totalItems]="totalItems" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination>
+        </div>
+    </div>
+</div>

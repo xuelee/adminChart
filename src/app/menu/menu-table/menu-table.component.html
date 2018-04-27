@@ -1,0 +1,50 @@
+<div class="menu-table-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="菜单名" [(ngModel)]="search['name']" id="name" name="name">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" (click) = "getMenusByPage(1)"><i class="fa fa-search" aria-hidden="true"></i> 搜索</button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input-group pull-right">
+                    <button class="btn btn-success" type="button" (click)="newmenu()"><i class="fa fa-menu" aria-hidden="true"></i> 创建菜单</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="menu-item-container">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>菜单名</th>
+                            <th>关键字</th>
+                            <th>状态</th>
+                            <th>等级</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let menu of menuList; let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{menu.name}}</td>
+                            <td>{{menu.urlkey}}</td>
+                            <td>{{menu.status == '1'?'启用':'禁用'}}</td>
+                            <td>{{menu.level}}级</td>
+                            <td>
+                            <a class="btn btn-success" type="button" [routerLink]="['/workspace/menu/menutable/editmenu',menu.id]">编辑</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <pagination [totalItems]="totalItems" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination>
+        </div>
+    </div>
+</div>

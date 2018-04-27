@@ -1,0 +1,187 @@
+<div class="post-table-container" [@flyIn]="'active'">
+     <div class="row" *ngFor = "let result of list">
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">数据信息</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table1">
+                        <tr>
+                            <th style="width:30%"><h4>统计时间</h4></th>
+                            <td class="text-muted" style="width:70%">
+                                <h4>{{result.statisTime}}</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><h3>总存量</h3></th>
+                            <td class="text-danger">
+                                <h3>
+                                    {{result.totalRechargeAmount}}元
+                                </h3>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><h3>定期存量</h3></th>
+                            <td class="text-danger">
+                                <h3>
+
+                                    {{result.dueRechargeAmount}}元
+                                </h3>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><h3>活期存量</h3></th>
+                            <td class="text-danger">
+                                <h3>
+
+                                    {{result.walletRechargeAmount}}元
+                                </h3>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><h4>总销售额</h4></th>
+                            <td class="text-muted">
+                                <h4>
+                                   {{result.totalSaleAmount}}元
+                                </h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><h4>人均存款额</h4></th>
+                            <td class="text-muted">
+                                <h4>
+                                    {{result.averageSaleAmount}}
+                                    元
+                                </h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><h4>人均累计忠诚周数</h4></th>
+                            <td class="text-muted">
+                                <h4>
+                                   {{result.averageLoyalWeek}}周
+                                </h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><h4>人均复投时间间隔</h4></th>
+                            <td class="text-muted">
+                                <h4>
+                                   {{result.averageRepeatRechargeInterval}} 天
+                                </h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><h4>总用户数</h4></th>
+                            <td class="text-muted"><h4>激活数:{{result.activeNum}}<br>注册数:{{result.registerUserNum}}<br>投资数:{{result.rechargeUserNum}} </h4></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <table class="table table-bordered table-hover" style="text-align: center">
+                                    <tbody>
+                                    <tr style="background: #f2f2f2">
+                                        <td  colspan="3">
+                                           <h3 style="text-align: center">统计分析</h3>
+                                            昨日：{{result.yesterdayReport.statisTime}}<br>
+                                            今日：{{result.todayReport.statisTime}}
+                                        </td>
+                                    </tr>
+                                    <tr style="background: #f2f2f2">
+                                        <th width="30%">统计项</th>
+                                        <td><b>
+                                            昨日</b>
+                                        </td>
+                                        <td><b>今日</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>用户数</th>
+                                        <td class="text-muted">激:{{result.yesterdayReport.activeNum}}<br>注:{{result.yesterdayReport.registerUserNum}}<br>投:{{result.yesterdayReport.rechargeUserNum}}</td>
+                                        <td class="text-muted">激:{{result.todayReport.activeNum}}<br>注:{{result.todayReport.registerUserNum}}<br>投:{{result.todayReport.rechargeUserNum}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>首投用户数</th>
+                                        <td class="text-muted">{{result.yesterdayReport.firstRechargeUserNum}}</td>
+                                        <td class="text-muted">{{result.todayReport.firstRechargeUserNum}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>复投用户数</th>
+                                        <td class="text-muted">{{result.yesterdayReport.repeatRechargeUserNum}}</td>
+                                        <td class="text-muted">{{result.todayReport.repeatRechargeUserNum}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>总投资金额(卡)</th>
+                                        <td class="text-muted">{{result.yesterdayReport.totalRechargeAmount}}</td>
+                                        <td class="text-muted">{{result.todayReport.totalRechargeAmount}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>定期投资金额(卡)</th>
+                                        <td class="text-muted">{{result.yesterdayReport.dueRechargeAmount}}</td>
+                                        <td class="text-muted">{{result.todayReport.dueRechargeAmount}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>活期投资金额(卡)</th>
+                                        <td class="text-muted">{{result.yesterdayReport.walletRechargeAmount}}</td>
+                                        <td class="text-muted">{{result.todayReport.walletRechargeAmount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>总复投金额(卡)</th>
+                                        <td class="text-muted">{{result.yesterdayReport.totalRepeatRecharAmount}}</td>
+                                        <td class="text-muted">{{result.todayReport.totalRepeatRecharAmount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>总取款金额</th>
+                                        <td class="text-muted">{{result.yesterdayReport.totalWithdrawAmount}} </td>
+                                        <td class="text-muted">{{result.todayReport.totalWithdrawAmount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>定期取款金额</th>
+                                        <td class="text-muted">{{result.yesterdayReport.dueWithdrawAmount}}</td>
+                                        <td class="text-muted">{{result.todayReport.dueWithdrawAmount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>活期取款金额</th>
+                                        <td class="text-muted">{{result.yesterdayReport.walletWithdrawAmount}} </td>
+                                        <td class="text-muted">{{result.todayReport.walletWithdrawAmount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>定期回款</th>
+                                        <td class="text-muted">{{result.yesterdayReport.dueBackAmount}}</td>
+                                        <td class="text-muted">{{result.todayReport.dueBackAmount}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <th><h4></h4></th>
+                            <td class="text-muted"><h4></h4></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+         <!-- <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">今日用户数</h3>
+                </div>
+                <div class="panel-body">
+                   <echart [chartType]="bar" class="nf-chart"></echart>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">总存量</h3>
+                </div>
+                <div class="panel-body">
+                   <echart [chartType]="pie" class="nf-chart"></echart>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>

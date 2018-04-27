@@ -1,0 +1,92 @@
+<div class="userInfo-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+         <div class="alert alert-info alert-dismissible" role="alert" *ngIf="message != null">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>{{message}}</strong> 
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">手机号</span>
+                              <input type="tel" class="form-control" id="basic-url"  placeholder="请输入手机号" 
+                              [(ngModel)]="search.phone" id="phone" name="phone">
+                            </div>
+
+                        </div>
+                        <div class="col-lg-1">
+                           <span class="input-group-btn" style="width: 60px">
+                              <button class="btn btn-default" type="button" (click)="getByPage()"><i class="fa fa-search" aria-hidden="true" ></i> {{'search' | translate}}</button>
+                          </span>
+                           <span class="input-group-btn" style="width: 60px">
+                              <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                          </span>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="financial-item-container">
+              <table class="table table-bordered" style="width:2100px;margin: 0px;border-bottom: 0px;">
+                      <thead>
+                      <tr>
+                          <th colspan="13" align="center">活期</th>
+                          <th colspan="6" align="center">定期</th>
+                      </tr>
+                      <tr>
+                          <th width="150px">日期</th>
+                          <th width="100px">姓名</th>
+                          <th width="100px">银行卡充值</th>
+                          <th width="100px">红包奖励</th>
+                          <th width="100px">还本付息到钱包</th>
+                          <th width="100px">钱包充值定期</th>
+                          <th width="100px">0-15点提现</th>
+                          <th width="100px">15-24点提现</th>
+                          <th width="100px">可计息金额</th>
+                          <th width="100px">利息</th>
+                          <th width="100px">利率</th>
+                          <th width="100px">存钱罐余额</th>
+                          <th width="100px">理论余额</th>
+                          <th width="100px">产品名称</th>
+                          <th width="100px">到期日</th>
+                          <th width="100px">购买金额</th>
+                          <th width="100px">购买方式<br>存钱罐|银行卡</th>
+                          <th width="100px">利率</th>
+                          <th width="100px">待收益</th>
+                         
+                      </tr>
+                      </thead>
+              </table>
+            <div style="overflow-y:auto;overflow-x:hidden;height:400px;width:2100px;">
+               <table class="table table-bordered" style="width:2100px;">
+                    <tr *ngFor="let item of list; let i=index">
+                        <td width="150px">{{item.dealTime}}</td>
+                        <td width="100px">{{item.userName}}</td>
+                        <td width="100px">{{item.bankTopupAmount*1 }}</td>
+                        <td width="100px">{{item.rewardMoneyAmount*1}}</td>
+                        <td width="100px">{{item.drawMoneyAmount*1}}</td>
+                        <td width="100px">{{item.walletTopupAmount*1}}</td>
+                        <td width="100px">{{item.enchashmenT015*1}}</td>
+                        <td width="100px">{{item.enchashmenT1524*1}}</td>
+                        <td width="100px">{{item.interestCapital*1}}</td>
+                        <td width="100px">{{item.interest*1}}</td>
+                        <td width="100px">{{item.interestRate*1| number: '1.0-2'}}</td>
+                        <td width="100px">{{item.walletAmount*1}}</td>
+                        <td width="100px">{{item.theoAmount*1}}</td>
+                        <td width="100px">{{item.productName}}</td>
+                        <td width="100px">{{item.dueTime}}</td>
+                        <td width="100px">{{item.dueAmount}}</td>
+                        <td width="100px">{{item.payType}}</td>
+                        <td width="100px">{{item.rate*1}}</td>
+                        <td width="100px">{{item.earningsAmount*1}}</td>
+                    </tr>
+                </table>
+              </div>
+            </div>
+
+        </div>
+    </div>
+</div>

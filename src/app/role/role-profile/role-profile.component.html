@@ -1,0 +1,37 @@
+<div class="role-profile-container">
+    <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-md-12">
+                        <label for="firstname" class=" control-label">选择绑定菜单</label> <button type="button" class="btn btn-success" (click)="bindMenu()">保存</button>
+                </div>
+            </div>
+        <div class="form-group" style="height: 500px;overflow-y: auto;">
+           
+            <div class="col-sm-12">
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-info"  *ngFor="let item of list" >
+                   <input type="checkbox" name="{{item.id}}"  value="{{item.id}}" [(ngModel)]="roles[item.id]" (change)="checkRoles(item)">{{item.name}} 
+                   <span class="caret" *ngIf="item.childMenu && item.childMenu != null"></span> 
+                   <ul class="list-group" *ngIf="item.childMenu&&item.childMenu != null">
+
+                        <li class="list-group-item"  *ngFor="let item1 of item.childMenu" >
+                            <input type="checkbox" name="{{item1.id}}"  [(ngModel)]="roles[item1.id]" (change)="checkRoles(item1)">{{item1.name}}
+                            <span class="caret" *ngIf="item1.childMenu && item1.childMenu.length>0"></span>
+                             <ul class="list-group" *ngIf="item1.childMenu && item1.childMenu.length>0">
+                               
+                                <li class="list-group-item" >
+                                    <span  *ngFor="let item2 of item1.childMenu" class="item-l">
+                                        <input type="checkbox" name="{{item2.id}}" [(ngModel)]="roles[item2.id]" (change)="checkRoles(item2)">{{item2.name}} 
+                                    </span>
+                                </li>
+                            </ul>
+                        </li>
+                      </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+
+    </form>
+</div>

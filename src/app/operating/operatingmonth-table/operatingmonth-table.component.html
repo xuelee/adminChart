@@ -1,0 +1,133 @@
+<div class="container" [@flyIn]="'active'" (click) = "initBody()">
+    <form class="form-vertical" role="form">
+       <div class="alert alert-info alert-dismissible" role="alert" >
+          
+         运营月报数据<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+          <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group" contenteditable="true">
+                              <span class="input-group-addon" id="basic-addon3">开始月份</span>
+                              <input type="text" value = "{{search.startTime.getFullYear()}}年{{search.startTime.getMonth()+1}}月" class="form-control" (focus)="initDate($event);showDate.startTime = true;">
+                                <div [hidden]="!showDate.startTime" style="position: absolute; z-index:10; min-height:290px;"  (click)="initDate($event);showDate.startTime = true;">
+                                <datepicker [(ngModel)]="search.startTime"  [datepickerMode]="datepickerMode" [maxDate]="search.endTime" [minMode]="minMode" [maxMode]="minMode" (selectionDone)="dataChange('startTime')"  id="startTime" name="startTime" >
+
+                                </datepicker>
+                                </div>
+                            </div>
+                         </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束月份</span>
+                              <input type="text" value = "{{search.endTime.getFullYear()}}年{{search.endTime.getMonth()+1}}月" class="form-control" (focus)="initDate($event);showDate.endTime = true;">
+                                <div [hidden]="!showDate.endTime" (click)="initDate($event);showDate.endTime = true;" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.endTime" [minDate]="search.startTime"  [datepickerMode]="datepickerMode" [minMode]="minMode" [maxMode]="minMode" (selectionDone)="dataChange('endTime')"  id="endTime" name="endTime" ></datepicker>
+                                </div>
+                            </div>
+                         </div>
+                        <div class="col-lg-1">
+                           <span class="input-group-btn" style="width: 60px">
+                              <button class="btn btn-default" type="button" (click)="getByPage(1)"><i class="fa fa-search" aria-hidden="true"></i> {{'search' | translate}}</button>
+                          </span>
+                           <span class="input-group-btn" style="width: 60px">
+                              <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                          </span>
+                        </div>
+                </div>
+            </div>
+        </div>   
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="item-container" style="overflow: auto;height:100%;">
+                <table class="table table-bordered" style="min-width:2100px;">
+                   <thead>
+                        <tr class="center">
+                          <th width="80px">月份</th>
+
+                          <th>累计创收</th>
+
+                          <th>累计交易笔数</th>
+
+                          <th>累计运营天数</th>
+
+                          <th>月创收</th>
+
+                          <th>月男性投资额</th>
+
+                          <th>月女性投资额</th>
+
+                          <th>月总投资额</th>
+
+                          <th>月男性投资人数</th>
+
+                          <th>月女性投资人数</th>
+
+                          <th>月活转定男性投资额</th>
+
+                          <th>月活转定女性投资额</th>
+
+                          <th>月活转定总额</th>
+
+                          <th>月活转定男性投资人数</th>
+
+                          <th>月活转定女性投资人数</th>
+
+                          <th>月活转定总人数</th>
+
+                          <th>月男性提现总额</th>
+
+                          <th>月女性提现总额</th>
+                          <th>月提现总额</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">                       
+                           <td>{{item.month}}</td>
+
+                           <td>{{item.accumUserEarnings}}</td>
+
+                           <td>{{item.accumUserDealCount}}</td>
+
+                           <td>{{item.accumOperationDays}}</td>
+
+                           <td>{{item.accumMonthlyUserEarnings}}</td>
+
+                           <td>{{item.monthlyMaleInvestAmount}}</td>
+
+                           <td>{{item.monthlyFemaleInvestAmount}}</td>
+
+                           <td>{{item.monthlyTotalInvestAmount}}</td>
+
+                           <td>{{item.monthlyMaleInvestCount}}</td>
+
+                           <td>{{item.monthlyFemaleInvestCount}}</td>
+
+                           <td>{{item.monthlyMaleWalletToDueAmount}}</td>
+
+                           <td>{{item.monthlyFemaleWalletToDueAmount}}</td>
+
+                           <td>{{item.monthlyTotalWalletToDueAmount}}</td>
+
+                           <td>{{item.monthlyMaleWalletToDueCount}}</td>
+
+                           <td>{{item.monthlyFemaleWalletToDueCount}}</td>
+
+                           <td>{{item.monthlyTotalWalletToDueCount}}</td>
+
+                           <td>{{item.monthlyMaleWithdrawAmount}}</td>
+
+                           <td>{{item.monthlyFemaleWithdrawAmount}}</td>
+
+                           <td>{{item.monthlyTotalWithdrawAmount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           <!-- <pagination [totalItems]="page.totalItems" [maxSize]="page.maxSize" [itemsPerPage]="page.itemsPerPage" [(ngModel)]="page.currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="page.numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination> -->
+        </div>
+    </div>
+</div>

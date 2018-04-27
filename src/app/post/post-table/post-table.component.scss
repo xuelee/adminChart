@@ -1,0 +1,15 @@
+
+    .table,.table tr,.table tr td,.table tr th,.table tbody{
+        box-sizing: border-box;
+    }
+    .table1{width: 100%}
+    .table1 tr>td,.table1 tr>th{
+        border-bottom: 1px solid #ddd;
+    }
+    .table1>tbody>tr>td{text-align: right;padding-bottom: 5px;padding-top: 5px;}
+    .nf-chart{
+    width:100%;
+    min-width:350px;
+    height:400px;
+    float:left;
+}

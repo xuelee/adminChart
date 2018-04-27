@@ -1,0 +1,115 @@
+<div class="userinfo-container" [@flyIn]="'active'">
+    <form class="form-vertical" role="form">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group" >
+                              <span class="input-group-addon" id="basic-addon3">交易开始时间</span>
+                              <input type="text" value = "{{datePipe.transform(search.tradeStartTime)}}" class="form-control" (focus)="showDatePicker = true;">
+                                <div [hidden]="!showDatePicker" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.tradeStartTime" [maxDate]="search.tradeEndTime" [showWeeks]="true"  id="tradeStartTime"  name="tradeStartTime" 
+                                 (selectionDone)="dataChange('showDatePicker')"        
+                                 ></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">交易结束时间</span>
+                              <input type="text" value = "{{datePipe.transform(search.tradeEndTime)}}" class="form-control" (focus)="showDatePicker1 = true;" >
+                                <div [hidden]="!showDatePicker1" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.tradeEndTime"  [minDate]="search.tradeStartTime" [showWeeks]="true" 
+                                 (selectionDone)="dataChange('showDatePicker1')"     
+                                id="tradeEndTime" name="tradeEndTime"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                          <div class="input-group btn-radis"  style="width:250px;">
+                            <span class="input-group-addon input-group2" id="basic-addon3">交易类型</span>
+                            <div class="input-group-addon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                              {{search.type.name}}<span class="caret"></span>
+                            </div>
+                            <ul class="dropdown-menu">
+                              <li (click)="search.type={'name':'全部',value:1}">全部</li>
+                              <li (click)="search.type={'name':'活期',value:2}">活期</li>
+                              <li (click)="search.type={'name':'定期',value:3}">定期</li>
+                              <li (click)="search.type={'name':'活转定',value:4}">活转定</li>
+                            </ul>
+                          </div>
+                        </div>
+                </div>
+            </div>
+        </div>   
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row" style="margin-bottom:10px;">
+                    <div class="col-lg-3">
+                        <div class="input-group">
+                          <span class="input-group-addon" id="basic-addon3">注册开始时间</span>
+                          <input type="text" value = "{{datePipe.transform(search.regStartTime)}}" class="form-control" (focus)="showDatePicker2 = true;">
+                            <div [hidden]="!showDatePicker2" style="position: absolute; z-index:10; min-height:290px;">
+                            <datepicker [(ngModel)]="search.regStartTime" [maxDate]="search.regEndTime" [showWeeks]="true"  id="regStartTime" name="regStartTime"  (selectionDone)="dataChange('showDatePicker2')"></datepicker>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-3">
+                        <div class="input-group">
+                          <span class="input-group-addon" id="basic-addon3">注册结束时间</span>
+                          <input type="text" value = "{{datePipe.transform(search.regEndTime)}}" class="form-control" (focus)="showDatePicker3 = true;" >
+                            <div [hidden]="!showDatePicker3" style="position: absolute; z-index:10; min-height:290px;">
+                            <datepicker [(ngModel)]="search.regEndTime"  [minDate]="search.regStartTime" [showWeeks]="true" id="regEndTime" name="regEndTime" (selectionDone)="dataChange('showDatePicker3')"></datepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                       <div class="btn-group" role="group" style="width: 300px;">
+                            <button class="btn btn-default" type="button" (click)="getByPage(1)"><i class="fa fa-search" aria-hidden="true"></i> {{'search' | translate}}</button>
+                            <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                            <button class="btn btn-default" type="button" (click)="clear()"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i> 清空注册日期
+                            </button>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="sales-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                        <tr class="center">
+                          <th>真实姓名</th>
+                          <th>手机号</th>
+                          <th>注册时间</th>
+                          <th>交易类型</th>
+                          <th>交易金额</th>
+                          <th>标的名称</th>
+                          <th>期限</th>
+                          <th>年化利率</th>
+                          <th>券title</th>
+                          <th>交易时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">                       
+                           <td>{{item.realName}}</td>
+                           <td>{{item.userName}}</td>
+                           <td>{{item.regTime}}</td>
+                           <td>{{item.tradeType}}</td>
+                           <td>{{item.tradeAmount}}</td>
+                           <td>{{item.projectName}}</td>
+                           <td>{{item.duration}}</td>
+                           <td>{{item.rate}}</td>
+                           <td>{{item.couponTitle}}</td>
+                           <td>{{item.tradeTime}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           <pagination [totalItems]="page.totalItems" [maxSize]="page.maxSize" [itemsPerPage]="page.itemsPerPage" [(ngModel)]="page.currentPage" firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" [boundaryLinks]="true" [rotate]="false" (numPages)="page.numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm"></pagination>
+        </div>
+    </div>
+</div>

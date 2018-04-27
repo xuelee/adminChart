@@ -1,0 +1,72 @@
+<div class="container" [@flyIn]="'active'" (click) = "initBody()">
+    <form class="form-vertical" role="form">
+       <div class="alert alert-info alert-dismissible" role="alert" >
+          
+        月年龄投资分布排行榜<strong *ngIf="errorMessage !=null && errorMessage != ''">-{{errorMessage}}</strong> 
+        </div>
+          <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                        <div class="col-lg-3">
+                            <div class="input-group" contenteditable="true">
+                              <span class="input-group-addon" id="basic-addon3">开始月份</span>
+                              <input type="text" value = "{{search.startTime.getFullYear()}}年{{search.startTime.getMonth()+1}}月" class="form-control" (focus)="initDate($event);showDate.startTime = true;">
+                                <div [hidden]="!showDate.startTime" style="position: absolute; z-index:10; min-height:290px;"  (click)="initDate($event);showDate.startTime = true;">
+                                <datepicker [(ngModel)]="search.startTime"  [datepickerMode]="datepickerMode" [maxDate]="search.endTime" [minMode]="minMode" [maxMode]="minMode" (selectionDone)="dataChange('startTime')"  id="startTime" name="startTime" >
+
+                                </datepicker>
+                                </div>
+                            </div>
+                         </div>
+                         <div class="col-lg-3">
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon3">结束月份</span>
+                              <input type="text" value = "{{search.endTime.getFullYear()}}年{{search.endTime.getMonth()+1}}月" class="form-control" (focus)="initDate($event);showDate.endTime = true;">
+                                <div [hidden]="!showDate.endTime" (click)="initDate($event);showDate.endTime = true;" style="position: absolute; z-index:10; min-height:290px;">
+                                <datepicker [(ngModel)]="search.endTime" [minDate]="search.startTime"  [datepickerMode]="datepickerMode" [minMode]="minMode" [maxMode]="minMode" (selectionDone)="dataChange('endTime')"  id="endTime" name="endTime" ></datepicker>
+                                </div>
+                            </div>
+                         </div>
+                        <div class="col-lg-1">
+                           <span class="input-group-btn" style="width: 60px">
+                              <button class="btn btn-default" type="button" (click)="getByPage(1)"><i class="fa fa-search" aria-hidden="true"></i> {{'search' | translate}}</button>
+                          </span>
+                           <span class="input-group-btn" style="width: 60px">
+                              <a class="btn btn-default" type="button" href="{{down}}"><i class="fa fa-download" aria-hidden="true"></i> 导出</a>
+                          </span>
+                        </div>
+                </div>
+            </div>
+        </div>   
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="walletchart-item-container">
+                <table class="table table-bordered">
+                   <thead>
+                        <tr class="center">
+                          <!-- <th>月份</th> -->
+                          <th>年龄段</th>
+                          <th>投资人数</th>
+                          <th>投资人数占比</th>
+                          <th>投资额</th>
+                          <th>投资额占比</th>
+	
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of list">                       
+                           <!-- <td>{{item.month}}</td> -->
+                           <td>{{item.age}}</td>
+                           <td>{{item.investUserCount}}</td>
+                           <td>{{item.investUserCountPercent}}</td>
+                           <td>{{item.investAmount}}</td>
+                           <td>{{item.investAmountPercent}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          
+        </div>
+    </div>
+</div>

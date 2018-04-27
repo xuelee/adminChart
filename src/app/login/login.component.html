@@ -1,0 +1,28 @@
+<div class="container w-xxl w-auto-xs login-form-container">
+  <h3 class="center-block sys-title">云端金融后台统计系统</h3>
+  <div class="m-b-lg">
+    <form name="form" class="form-validation"  #form="ngForm" (ngSubmit)="form.form.valid" role="form">
+      <div class="text-danger wrapper text-center" >
+          {{errorMessage}}
+      </div>
+      <div class="list-group list-group-sm">
+        <div class="list-group-item">
+           <input required name="userName" [(ngModel)]="user.userName" #userName="ngModel" type="text" class="form-control no-border" placeholder="请输入用户名...">
+        </div>
+        <div class="list-group-item">
+         <input required minlength="5" [(ngModel)]="user.password" name="password" #password="ngModel" type="password" class="form-control no-border" placeholder="请输入密码...">
+        </div>
+        <div class="list-group-item">
+          <div class="row">
+            <div class="col-md-6"><input required minlength="5" [(ngModel)]="user.validCode" #validCode="ngModel" name="validCode"  type="text" class="form-control no-border" placeholder="请输入验证码..."></div>
+            <div class="col-md-6"><img id="codeImg" src="{{checkurl}}" alt="点击刷新验证码" style="width: 100%" (click)="getCode($event)"></div>
+          </div>
+        </div>  
+      </div>
+      <button type="submit" class="btn btn-lg btn-success btn-block" (click)="login()">登录</button>
+    <!--   <div class="text-center m-t m-b"><a ui-sref="access.forgotpwd">是否记住密码</a></div> -->
+      <div class="line line-dashed"></div>
+    </form>
+  </div>
+  <div class="text-center" ng-include="'tpl/blocks/page_footer.html'"></div>
+</div>
